@@ -1,0 +1,15 @@
+{
+    "name": "hello",
+    "version": "0.0.1",
+    "description": "hello world",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "extension.ts"
+    ],
+    "testFiles": [],
+    "public": true,
+    "preferredEditor": "tsprj"
+}
