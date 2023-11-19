@@ -8,7 +8,7 @@
     },
     "files": [
         "pxt/entities.ts",
-		"pxt/wand"
+		"pxt/wand.ts"
     ],
     "testFiles": [],
     "public": true,
