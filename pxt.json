@@ -1,13 +1,14 @@
 {
-    "name": "hello",
-    "version": "0.0.1",
-    "description": "hello world",
+    "name": "The Code Zone",
+    "version": "0.0.2",
+    "description": "Developed by Amitai",
     "license": "MIT",
     "dependencies": {
         "core": "*"
     },
     "files": [
-        "extension.ts"
+        "pxt/entities.ts",
+		"pxt/wand"
     ],
     "testFiles": [],
     "public": true,

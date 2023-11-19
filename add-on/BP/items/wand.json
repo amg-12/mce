@@ -1,0 +1,29 @@
+{
+	"format_version": "1.20.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "tcz:wand"
+		},
+		"components": {
+			"minecraft:icon": {
+				"texture": "stick"
+			},
+			"minecraft:foil": true,
+			"minecraft:on_use": {
+				"on_use": {
+					"event": "click",
+					"target": "self"
+				}
+			}
+		},
+		"events": {
+			"click": {
+				"shoot": {
+					"projectile": "snowball",
+					"launch_power": 1,
+					"target": "other"
+				}
+			}
+		}
+	}
+}
