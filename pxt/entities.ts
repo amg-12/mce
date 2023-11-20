@@ -46,7 +46,7 @@ type Rules = {
 //% weight=65 color=#764bcc icon="\uf06c"
 namespace entities {
 
-// --- Selectors ---
+    // --- Selectors ---
 
     //% block blockId=nearestEntity
     //% group=Selectors weight=90
@@ -87,7 +87,7 @@ namespace entities {
         return target
     }
 
-// --- Selection Rules ---
+    // --- Selection Rules ---
 
     //% blockId=rule block="$name = $value"
     //% blockHidden=true
@@ -161,7 +161,21 @@ namespace entities {
         return { content: [{ name, value }] }
     }
 
-// --- Misc. ---
+    // --- Tagging ---
+
+    //% block="tag %target=minecraftTarget with $tag"
+    //% group=Tagging weight=100
+    export function tag(target: TargetSelector, tag: string) {
+        player.execute("tag " + target + " add " + tag)
+    }
+
+    //% block="untag %target=minecraftTarget with $tag"
+    //% group=Tagging weight=90
+    export function untag(target: TargetSelector, tag: string) {
+        player.execute("tag " + target + " remove " + tag)
+    }
+
+    // --- Misc. ---
 
     //% block="make %target=nearestEntity baby"
     //% group=Misc. weight=90
