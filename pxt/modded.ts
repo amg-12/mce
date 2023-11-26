@@ -1,7 +1,7 @@
 enum Damage {
-    //% block="shot"
+    //% block="by projectile"
     Shot,
-    //% block="hit"
+    //% block="with wand"
     Hit
 }
 
@@ -16,10 +16,9 @@ namespace modded {
         }
     }
 
-    //% block="on $target $damage, multiplayer %multi=toggleOnOff"
+    //% block="on $target hit $damage, multiplayer %multi=toggleOnOff"
     //% group=Wand weight=80
     //% draggableParameters
-    //% multi.defl=true
     export function onDamage(damage: Damage, multi: boolean, handler: (target: TargetSelector) => void) {
         player.execute("scriptevent tcz:multiplayer " + multi)
         let dmg = damage ? "hit" : "shot"

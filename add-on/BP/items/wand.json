@@ -5,9 +5,13 @@
 			"identifier": "tcz:wand"
 		},
 		"components": {
+			"minecraft:display_name": {
+				"value": "Wand"
+			},
 			"minecraft:icon": {
 				"texture": "stick"
 			},
+			"minecraft:max_stack_size": 1,
 			"minecraft:foil": true,
 			"minecraft:on_use": {
 				"on_use": {

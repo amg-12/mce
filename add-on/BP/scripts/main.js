@@ -2,7 +2,7 @@ import { system, world } from "@minecraft/server"
 
 const overworld = world.getDimension("overworld")
 
-let multiplayer = true
+let multiplayer = false
 
 function sendEvent(player, message) {
     if (multiplayer) {
@@ -14,16 +14,16 @@ function sendEvent(player, message) {
 
 world.afterEvents.entityHurt.subscribe(data => {
     let player = data.damageSource.damagingEntity
-    switch (data.damageSource.cause) {
-        case "projectile":
-            data.hurtEntity.addTag("shot_by_" + player.name)
-            sendEvent(player, "shot")
-            break
-        case "entityAttack":
-            data.hurtEntity.addTag("hit_by_" + player.name)
-            sendEvent(player, "hit")
-            break
-        default: break
+    let cause = data.damageSource.cause
+    let weapon = player.getComponent('inventory').container.getItem(player.selectedSlot).typeId
+    // let projectile = data.damageSource.damagingProjectile.typeId
+    // projectile must persist in order to be checked
+    if (cause == "projectile") {
+        data.hurtEntity.addTag("shot_by_" + player.name)
+        sendEvent(player, "shot")
+    } else if (cause == "entityAttack" && weapon == "tcz:wand") {
+        data.hurtEntity.addTag("hit_by_" + player.name)
+        sendEvent(player, "hit")
     }
 })
 
