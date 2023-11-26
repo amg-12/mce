@@ -2,25 +2,46 @@ import { system, world } from "@minecraft/server"
 
 const overworld = world.getDimension("overworld")
 
+let multiplayer = true
+
+function sendEvent(player, message) {
+    if (multiplayer) {
+        player.teleport(player.location)
+    } else {
+        player.runCommand("w @s " + message)
+    }
+}
+
 world.afterEvents.entityHurt.subscribe(data => {
-    let name = data.damageSource.damagingEntity.nameTag
+    let player = data.damageSource.damagingEntity
     switch (data.damageSource.cause) {
         case "projectile":
-            data.hurtEntity.addTag("shot_by_" + name)
-            data.hurtEntity.runCommand("w " + name + " shot")
+            data.hurtEntity.addTag("shot_by_" + player.name)
+            sendEvent(player, "shot")
             break
         case "entityAttack":
-            data.hurtEntity.addTag("hit_by_" + name)
-            data.hurtEntity.runCommand("w " + name + " hit")
+            data.hurtEntity.addTag("hit_by_" + player.name)
+            sendEvent(player, "hit")
             break
         default: break
     }
 })
 
-// use of tags here is a hack
-// would be better to parse target selector to EntityQueryOptions
 system.afterEvents.scriptEventReceive.subscribe(data => {
     switch (data.id) {
+        case "tcz:multiplayer":
+            switch (data.message) {
+                case "true":
+                    multiplayer = true
+                    break
+                case "false":
+                    multiplayer = false
+                    break
+                default:
+                    overworld.runCommand("say multiplayer: " + multiplayer)
+                    break
+            }
+            break
         case "tcz:rename":
             let args = data.message.split("|")
             let selector = "@" + args[0]
@@ -33,6 +54,7 @@ system.afterEvents.scriptEventReceive.subscribe(data => {
             })
             data.sourceEntity.runCommand("tag " + selector + " remove " + tag)
             break
-        default: break
+        default:
+            overworld.runCommand("w " + data.sourceEntity.name + " no scriptevent named " + data.id)
     }
 })
