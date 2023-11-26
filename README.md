@@ -1,5 +1,5 @@
 ### Usage
-Minecraft Education 1.20.12
+Minecraft Education 1.20.13
 - download and enable [this resource pack](https://www.mediafire.com/file/e4911c6zqq7rjgz/UI_Upgrade.mcaddon/file) to access Experiments toggles
 - create a world with
   - **Holiday Creator Features** enabled

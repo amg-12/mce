@@ -9,6 +9,7 @@ enum Damage {
 namespace wand {
 
     //% block="on $target $damage"
+    //% group=Events
     //% draggableParameters
     export function onDamage(damage: Damage, handler: (target: TargetSelector) => void) {
         let dmg = damage ? "hit" : "shot"
@@ -19,6 +20,12 @@ namespace wand {
             handler(tar)
             player.execute("tag @e remove " + tag)
         })
+    }
+
+    //% block="rename %target=minecraftTarget to $name"
+    //% group="Non-wand"
+    export function rename(target: TargetSelector, name: string): void {
+        player.execute("scriptevent tcz:rename " + target.toString().slice(1) + "|" + name)
     }
 
 }
