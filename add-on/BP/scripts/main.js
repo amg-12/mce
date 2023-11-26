@@ -44,15 +44,7 @@ system.afterEvents.scriptEventReceive.subscribe(data => {
             break
         case "tcz:rename":
             let args = data.message.split("|")
-            let selector = "@" + args[0]
-            let name = args[1]
-            let tag = "t" + Math.random().toString()
-            data.sourceEntity.runCommand("tag " + selector + " add " + tag)
-            let targets = overworld.getEntities().filter(x => x.hasTag(tag))
-            targets.forEach(target => {
-                target.nameTag = name
-            })
-            data.sourceEntity.runCommand("tag " + selector + " remove " + tag)
+            world.getEntity(args[0]).nameTag = args[1]
             break
         default:
             overworld.runCommand("w " + data.sourceEntity.name + " no scriptevent named " + data.id)
