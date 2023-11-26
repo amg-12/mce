@@ -7,8 +7,8 @@
         "core": "*"
     },
     "files": [
-        "pxt/entities.ts",
-		"pxt/wand.ts"
+        "pxt/modded.ts",
+        "pxt/entities.ts"
     ],
     "testFiles": [],
     "public": true,
