@@ -46,6 +46,16 @@ type Rules = {
 //% weight=65 color=#764bcc icon="\uf06c"
 namespace entities {
 
+    // --- Queries ---
+
+    //% block
+    //% group=Queries
+    //% target.shadow=minecraftTarget
+    export function positionOf(target: TargetSelector): Position {
+        let entity = mobs.queryTarget(target)[0]
+        return world(Math.floor(entity.x), Math.floor(entity.y), Math.floor(entity.z))
+    }
+
     // --- Selectors ---
 
     //% block blockId=nearestEntity
@@ -198,12 +208,6 @@ namespace entities {
         mobs.execute(target, pos(0, 0, 0), "summon ender_crystal")
         mobs.execute(target, pos(0, 0, 0),
             "event entity @e[type=ender_crystal,c=1] minecraft:crystal_explode")
-    }
-
-    //% block="strike %target=nearestEntity with lightning"
-    //% group=Misc. weight=60
-    export function lightning(target: TargetSelector) {
-        mobs.execute(target, pos(0, 0, 0), "summon lightning_bolt")
     }
 
 }
