@@ -5,6 +5,14 @@ enum Damage {
     Hit
 }
 
+export function subscribe(multi: boolean, message: string, func: () => void) {
+    if (multi) {
+        player.onTeleported(func)
+    } else {
+        player.onTellCommand(message, func)
+    }
+}
+
 //% weight=66 color=#333333 icon="\uf0d0"
 namespace modded {
 
@@ -12,14 +20,6 @@ namespace modded {
     //% group=Wand weight=90
     export function give(target: TargetSelector) {
         player.execute("give " + target + " tcz:wand")
-    }
-
-    export function subscribe(multi: boolean, message: string, func: () => void) {
-        if (multi) {
-            player.onTeleported(func)
-        } else {
-            player.onTellCommand(message, func)
-        }
     }
 
     //% block="multiplayer %toggle=toggleOnOff" //% blockId=multiplayerToggle
