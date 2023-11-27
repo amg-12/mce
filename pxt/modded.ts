@@ -5,7 +5,7 @@ enum Damage {
     Hit
 }
 
-export function subscribe(multi: boolean, message: string, func: () => void) {
+function subscribe(multi: boolean, message: string, func: () => void) {
     if (multi) {
         player.onTeleported(func)
     } else {
