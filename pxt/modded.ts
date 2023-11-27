@@ -16,7 +16,13 @@ namespace modded {
         }
     }
 
-    //% block="on $target hit $damage, multiplayer %multi=toggleOnOff"
+    //% block="multiplayer %toggle=toggleOnOff" //% blockId=multiplayerToggle
+    //% blockHidden=true
+    export function multiplayer(toggle: boolean): boolean {
+        return toggle
+    }
+
+    //% block="on $target hit $damage %multi=multiplayerToggle"
     //% group=Wand weight=80
     //% draggableParameters
     export function onDamage(damage: Damage, multi: boolean, handler: (target: TargetSelector) => void) {
