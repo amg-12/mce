@@ -155,11 +155,11 @@ namespace entities {
             }
             case ItemRule.Holding: return {
                 content:
-                    [{ name: "hasitem", value: "{item=" + item + ",location=slot.weapon.mainhand}" }]
+                    [{ name: "hasitem", value: `{item=${item},location=slot.weapon.mainhand}` }]
             }
             case ItemRule.NotHolding: return {
                 content:
-                    [{ name: "hasitem", value: "{item=" + item + ",location=slot.weapon.mainhand,quantity=0}" }]
+                    [{ name: "hasitem", value: `{item=${item},location=slot.weapon.mainhand,quantity=0}` }]
             }
             default: return { content: [] }
         }
@@ -176,13 +176,13 @@ namespace entities {
     //% block="tag %target=minecraftTarget with $tag"
     //% group=Tagging weight=100
     export function tag(target: TargetSelector, tag: string) {
-        player.execute("tag " + target + " add " + tag)
+        player.execute(`tag ${target} add ${tag}`)
     }
 
     //% block="untag %target=minecraftTarget with $tag"
     //% group=Tagging weight=90
     export function untag(target: TargetSelector, tag: string) {
-        player.execute("tag " + target + " remove " + tag)
+        player.execute(`tag ${target} remove ${tag}`)
     }
 
     // --- Misc. ---
@@ -190,16 +190,16 @@ namespace entities {
     //% block="make %target=nearestEntity baby"
     //% group=Misc. weight=90
     export function makeBaby(target: TargetSelector) {
-        player.execute("event entity " + target + " minecraft:entity_born")
-        player.execute("event entity " + target + " minecraft:as_baby")
+        player.execute(`event entity ${target} minecraft:entity_born`)
+        player.execute(`event entity ${target} minecraft:as_baby`)
     }
 
     //% block="make %target=nearestEntity adult"
     //% group=Misc. weight=80
     export function makeAdult(target: TargetSelector) {
-        player.execute("event entity " + target + " minecraft:ageable_grow_up")
-        player.execute("event entity " + target + " grow_up")
-        // player.execute("event entity " + target + " minecraft:as_adult") // doesn't work
+        player.execute(`event entity ${target} minecraft:ageable_grow_up`)
+        player.execute(`event entity ${target} grow_up`)
+        // player.execute(`event entity ${target} minecraft:as_adult`) // doesn't work
     }
 
     //% block="explode %target=nearestEntity"

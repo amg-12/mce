@@ -8,7 +8,7 @@ function sendEvent(player, message) {
     if (multiplayer) {
         player.teleport(player.location)
     } else {
-        player.runCommand("w @s " + message)
+        player.runCommand(`w @s ${message}`)
     }
 }
 
@@ -25,10 +25,10 @@ world.afterEvents.entityHurt.subscribe(data => {
     // let projectile = data.damageSource.damagingProjectile.typeId
     // projectile must persist in order to be checked
     if (cause == "projectile") {
-        data.hurtEntity.addTag("_shot_by_" + player.name)
+        data.hurtEntity.addTag(`_shot_by_${player.name}`)
         sendEvent(player, "shot")
     } else if (cause == "entityAttack" && weapon == "tcz:wand") {
-        data.hurtEntity.addTag("_hit_by_" + player.name)
+        data.hurtEntity.addTag(`_hit_by_${player.name}`)
         sendEvent(player, "hit")
     }
 })
@@ -44,7 +44,7 @@ system.afterEvents.scriptEventReceive.subscribe(data => {
                     multiplayer = false
                     break
                 default:
-                    overworld.runCommand("say multiplayer: " + multiplayer)
+                    overworld.runCommand(`say multiplayer: ${multiplayer}`)
                     break
             }
             break
@@ -53,6 +53,6 @@ system.afterEvents.scriptEventReceive.subscribe(data => {
             world.getEntity(args[0]).nameTag = args[1]
             break
         default:
-            overworld.runCommand("w " + data.sourceEntity.name + " no scriptevent named " + data.id)
+            overworld.runCommand(`w ${data.sourceEntity.name} no scriptevent named ${data.id}`)
     }
 })

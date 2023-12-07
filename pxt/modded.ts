@@ -19,7 +19,7 @@ namespace modded {
     //% block="give %target=minecraftTarget a wand"
     //% group=Wand weight=90
     export function give(target: TargetSelector) {
-        player.execute("give " + target + " tcz:wand")
+        player.execute(`give ${target} tcz:wand`)
     }
 
     //% block="multiplayer %toggle=toggleOnOff" //% blockId=multiplayerToggle
@@ -32,21 +32,22 @@ namespace modded {
     //% group=Wand weight=80
     //% draggableParameters
     export function onDamage(damage: Damage, multi: boolean, handler: (target: TargetSelector) => void) {
-        player.execute("scriptevent tcz:multiplayer " + multi)
+        player.execute(`scriptevent tcz:multiplayer ${multi}`)
         let dmg = damage ? "hit" : "shot"
-        let tag = "_" + dmg + "_by_" + player.name()
+        let tag = `_${dmg}_by_${player.name()}`
         let tar = mobs.target(ALL_ENTITIES)
         tar.addRule("tag", tag)
+        player.execute(`tag @e remove ${tag}`)
         subscribe(multi, dmg, function () {
             handler(tar)
-            player.execute("tag @e remove " + tag)
+            player.execute(`tag @e remove ${tag}`)
         })
     }
 
     //% block="rename %target=minecraftTarget to $name"
     //% group=Other
     export function rename(target: TargetSelector, name: string): void {
-        player.execute("scriptevent tcz:rename " + mobs.queryTarget(target)[0].uniqueId + "|" + name)
+        player.execute(`scriptevent tcz:rename ${mobs.queryTarget(target)[0].uniqueId}|${name}`)
     }
 
 }
