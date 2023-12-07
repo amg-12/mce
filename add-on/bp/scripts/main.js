@@ -12,6 +12,12 @@ function sendEvent(player, message) {
     }
 }
 
+world.afterEvents.playerSpawn.subscribe(data => {
+    data.player.getTags().filter(x => x[0] == "_").forEach(tag => {
+        data.player.removeTag(tag)
+    })
+})
+
 world.afterEvents.entityHurt.subscribe(data => {
     let player = data.damageSource.damagingEntity
     let cause = data.damageSource.cause
@@ -19,10 +25,10 @@ world.afterEvents.entityHurt.subscribe(data => {
     // let projectile = data.damageSource.damagingProjectile.typeId
     // projectile must persist in order to be checked
     if (cause == "projectile") {
-        data.hurtEntity.addTag("shot_by_" + player.name)
+        data.hurtEntity.addTag("_shot_by_" + player.name)
         sendEvent(player, "shot")
     } else if (cause == "entityAttack" && weapon == "tcz:wand") {
-        data.hurtEntity.addTag("hit_by_" + player.name)
+        data.hurtEntity.addTag("_hit_by_" + player.name)
         sendEvent(player, "hit")
     }
 })

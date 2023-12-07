@@ -34,7 +34,7 @@ namespace modded {
     export function onDamage(damage: Damage, multi: boolean, handler: (target: TargetSelector) => void) {
         player.execute("scriptevent tcz:multiplayer " + multi)
         let dmg = damage ? "hit" : "shot"
-        let tag = dmg + "_by_" + player.name()
+        let tag = "_" + dmg + "_by_" + player.name()
         let tar = mobs.target(ALL_ENTITIES)
         tar.addRule("tag", tag)
         subscribe(multi, dmg, function () {
