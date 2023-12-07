@@ -52,8 +52,13 @@ namespace entities {
     //% group=Queries
     //% target.shadow=minecraftTarget
     export function positionOf(target: TargetSelector): Position {
-        let entity = mobs.queryTarget(target)[0]
-        return world(Math.floor(entity.x), Math.floor(entity.y), Math.floor(entity.z))
+        let results = mobs.queryTarget(target)
+        if (results.length > 0) {
+            let entity = results[0]
+            return world(Math.floor(entity.x), Math.floor(entity.y), Math.floor(entity.z))
+        } else {
+            return world(0, 0, 0)
+        }
     }
 
     // --- Selectors ---

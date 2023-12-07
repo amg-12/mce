@@ -20,16 +20,18 @@ world.afterEvents.playerSpawn.subscribe(data => {
 
 world.afterEvents.entityHurt.subscribe(data => {
     let player = data.damageSource.damagingEntity
-    let cause = data.damageSource.cause
-    let weapon = player.getComponent('inventory').container.getItem(player.selectedSlot).typeId
-    // let projectile = data.damageSource.damagingProjectile.typeId
-    // projectile must persist in order to be checked
-    if (cause == "projectile") {
-        data.hurtEntity.addTag(`_shot_by_${player.name}`)
-        sendEvent(player, "shot")
-    } else if (cause == "entityAttack" && weapon == "tcz:wand") {
-        data.hurtEntity.addTag(`_hit_by_${player.name}`)
-        sendEvent(player, "hit")
+    if (player.typeId == "minecraft:player") {
+        let cause = data.damageSource.cause
+        let weapon = player.getComponent('inventory').container.getItem(player.selectedSlot).typeId
+        // let projectile = data.damageSource.damagingProjectile.typeId
+        // projectile must persist in order to be checked
+        if (cause == "projectile") {
+            data.hurtEntity.addTag(`_shot_by_${player.name}`)
+            sendEvent(player, "shot")
+        } else if (cause == "entityAttack" && weapon == "tcz:wand") {
+            data.hurtEntity.addTag(`_hit_by_${player.name}`)
+            sendEvent(player, "hit")
+        }
     }
 })
 
