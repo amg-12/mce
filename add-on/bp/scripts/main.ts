@@ -1,10 +1,10 @@
-import { system, world } from "@minecraft/server"
+import { system, world, Player, EntityInventoryComponent } from "@minecraft/server"
 
 const overworld = world.getDimension("overworld")
 
 let multiplayer = false
 
-function sendEvent(player, message) {
+function sendEvent(player: Player, message: string) {
     if (multiplayer) {
         player.teleport(player.location)
     } else {
@@ -19,10 +19,11 @@ world.afterEvents.playerSpawn.subscribe(data => {
 })
 
 world.afterEvents.entityHurt.subscribe(data => {
-    let player = data.damageSource.damagingEntity
+    let player = data.damageSource.damagingEntity as Player
     if (player.typeId == "minecraft:player") {
         let cause = data.damageSource.cause
-        let weapon = player.getComponent('inventory').container.getItem(player.selectedSlot).typeId
+        let inventory = (player.getComponent('inventory') as EntityInventoryComponent).container
+        let weapon = inventory.getItem(player.selectedSlot).typeId
         // let projectile = data.damageSource.damagingProjectile.typeId
         // projectile must persist in order to be checked
         if (cause == "projectile") {
@@ -36,6 +37,7 @@ world.afterEvents.entityHurt.subscribe(data => {
 })
 
 system.afterEvents.scriptEventReceive.subscribe(data => {
+    let player = data.sourceEntity as Player
     switch (data.id) {
         case "tcz:multiplayer":
             switch (data.message) {
@@ -55,6 +57,6 @@ system.afterEvents.scriptEventReceive.subscribe(data => {
             world.getEntity(args[0]).nameTag = args[1]
             break
         default:
-            overworld.runCommand(`w ${data.sourceEntity.name} no scriptevent named ${data.id}`)
+            overworld.runCommand(`w ${player.name} no scriptevent named ${data.id}`)
     }
 })

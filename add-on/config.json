@@ -1,0 +1,40 @@
+{
+	"type": "minecraftBedrock",
+	"name": "The Code Zone",
+	"namespace": "tcz",
+	"authors": [
+		"Amitai"
+	],
+	"targetVersion": "1.20.10",
+	"description": "Developed by Amitai",
+	"experimentalGameplay": {
+		"holidayCreatorFeatures": true,
+		"enableGameTestFramework": true
+	},
+	"bdsProject": false,
+	"packs": {
+		"behaviorPack": "./bp"
+	},
+	"worlds": [
+		"./worlds/*"
+	],
+	"compiler": {
+		"plugins": [
+			"generatorScripts",
+			"typeScript",
+			"entityIdentifierAlias",
+			"customEntityComponents",
+			"customItemComponents",
+			"customBlockComponents",
+			"customCommands",
+			"moLang",
+			"formatVersionCorrection",
+			[
+				"simpleRewrite",
+				{
+					"packName": "The Code Zone"
+				}
+			]
+		]
+	}
+}
