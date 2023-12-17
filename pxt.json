@@ -8,6 +8,7 @@
     },
     "files": [
         "pxt/modded.ts",
+        "pxt/scriptevent.ts"
         "pxt/entities.ts"
     ],
     "testFiles": [],

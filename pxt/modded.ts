@@ -47,10 +47,7 @@ namespace modded {
     //% block="rename %target=minecraftTarget to $name"
     //% group=Other
     export function rename(target: TargetSelector, name: string): void {
-        let results = mobs.queryTarget(target)
-        if (results.length > 0) {
-            player.execute(`scriptevent tcz:rename ${results[0].uniqueId}|${name}`)
-        }
+    	scriptevent.send("rename", [target, name])
     }
 
 }
